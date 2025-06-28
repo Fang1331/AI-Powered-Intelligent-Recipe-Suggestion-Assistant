@@ -18,6 +18,7 @@ CORS(app)
 genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
 gemini_model = genai.GenerativeModel("models/gemini-2.0-flash")
 
+
 # Load Hugging Face model
 hf_model_name = "google/flan-t5-base"
 hf_tokenizer = AutoTokenizer.from_pretrained(hf_model_name)
