@@ -18,7 +18,6 @@ CORS(app)
 genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
 gemini_model = genai.GenerativeModel("models/gemini-2.0-flash")
 
-
 # Load Hugging Face model
 hf_model_name = "google/flan-t5-base"
 hf_tokenizer = AutoTokenizer.from_pretrained(hf_model_name)
@@ -47,7 +46,7 @@ def generate_recipe():
             - Cooking Time: {cooking_time or "Flexible"}
             - Complexity: {complexity or "Any"}
 
-            Return the recipe with a title, ingredients list, and step-by-step instructions.
+            Return the recipe with a title, ingredients list, and step-by-step instructions to cook it.
             """
 
             if image:
@@ -73,7 +72,7 @@ def generate_recipe():
             hf_prompt = (
                 f"Create a recipe using these ingredients: {ingredients}. "
                 f"The recipe should be suitable for a {complexity.lower() if complexity else 'beginner'} cook. "
-                f"Include a title, list of ingredients, and step-by-step instructions."
+                f"Give step-by-step instructions to cook it."
             )
             inputs = hf_tokenizer(hf_prompt, return_tensors="pt", truncation=True)
             outputs = hf_model.generate(**inputs, max_length=512, num_beams=4, early_stopping=True)
