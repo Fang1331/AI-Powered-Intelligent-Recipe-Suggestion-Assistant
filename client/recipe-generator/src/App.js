@@ -7,18 +7,23 @@ const RecipeCard = ({ onSubmit }) => {
   const [cuisine, setCuisine] = useState("");
   const [cookingTime, setCookingTime] = useState("");
   const [complexity, setComplexity] = useState("");
-  const [model, setModel] = useState("gemini"); // Default model
+  const [model, setModel] = useState("gemini");
+  const [image, setImage] = useState(null);
 
   const handleSubmit = () => {
-    const recipeData = {
-      ingredients,
-      mealType,
-      cuisine,
-      cookingTime,
-      complexity,
-      use: model
-    };
-    onSubmit(recipeData);
+    const formData = new FormData();
+    formData.append("ingredients", ingredients);
+    formData.append("mealType", mealType);
+    formData.append("cuisine", cuisine);
+    formData.append("cookingTime", cookingTime);
+    formData.append("complexity", complexity);
+    formData.append("use", model);
+
+    if (model === "gemini" && image) {
+      formData.append("image", image);
+    }
+
+    onSubmit(formData);
   };
 
   return (
@@ -28,12 +33,9 @@ const RecipeCard = ({ onSubmit }) => {
 
         {/* Ingredients */}
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="ingredients">
-            Ingredients
-          </label>
+          <label className="block text-gray-700 text-sm font-bold mb-2">Ingredients</label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="ingredients"
             type="text"
             placeholder="Enter ingredients"
             value={ingredients}
@@ -41,17 +43,14 @@ const RecipeCard = ({ onSubmit }) => {
           />
         </div>
 
-        {/* Only show these when Gemini is selected */}
+        {/* Conditional fields for Gemini */}
         {model === "gemini" && (
           <>
             {/* Meal Type */}
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="mealType">
-                Meal Type
-              </label>
+              <label className="block text-gray-700 text-sm font-bold mb-2">Meal Type</label>
               <select
-                className="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none"
-                id="mealType"
+                className="block w-full bg-white border border-gray-400 px-4 py-2 rounded shadow"
                 value={mealType}
                 onChange={(e) => setMealType(e.target.value)}
               >
@@ -65,14 +64,11 @@ const RecipeCard = ({ onSubmit }) => {
 
             {/* Cuisine */}
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cuisine">
-                Cuisine Preference
-              </label>
+              <label className="block text-gray-700 text-sm font-bold mb-2">Cuisine Preference</label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none"
-                id="cuisine"
+                className="shadow border rounded w-full py-2 px-3 text-gray-700"
                 type="text"
-                placeholder="e.g., Italian, Mexican"
+                placeholder="e.g., Italian, Indian"
                 value={cuisine}
                 onChange={(e) => setCuisine(e.target.value)}
               />
@@ -80,12 +76,9 @@ const RecipeCard = ({ onSubmit }) => {
 
             {/* Cooking Time */}
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cookingTime">
-                Cooking Time
-              </label>
+              <label className="block text-gray-700 text-sm font-bold mb-2">Cooking Time</label>
               <select
-                className="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none"
-                id="cookingTime"
+                className="block w-full bg-white border border-gray-400 px-4 py-2 rounded shadow"
                 value={cookingTime}
                 onChange={(e) => setCookingTime(e.target.value)}
               >
@@ -95,17 +88,24 @@ const RecipeCard = ({ onSubmit }) => {
                 <option value="More than 1 hour">More than 1 hour</option>
               </select>
             </div>
+
+            {/* Image Upload */}
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Upload Image</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImage(e.target.files[0])}
+              />
+            </div>
           </>
         )}
 
         {/* Complexity */}
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="complexity">
-            Complexity
-          </label>
+          <label className="block text-gray-700 text-sm font-bold mb-2">Complexity</label>
           <select
-            className="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none"
-            id="complexity"
+            className="block w-full bg-white border border-gray-400 px-4 py-2 rounded shadow"
             value={complexity}
             onChange={(e) => setComplexity(e.target.value)}
           >
@@ -116,27 +116,23 @@ const RecipeCard = ({ onSubmit }) => {
           </select>
         </div>
 
-        {/* Model Selector */}
+        {/* AI Model Selector */}
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="model">
-            Choose AI Model
-          </label>
+          <label className="block text-gray-700 text-sm font-bold mb-2">Choose AI Model</label>
           <select
-            className="block appearance-none w-full bg-white border border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none"
-            id="model"
+            className="block w-full bg-white border border-gray-400 px-4 py-2 rounded shadow"
             value={model}
             onChange={(e) => setModel(e.target.value)}
           >
-            <option value="gemini">Gemini</option>
-            <option value="huggingface">Hugging Face</option>
+            <option value="gemini">Gemini (Text + Image)</option>
+            <option value="huggingface">Hugging Face (Text only)</option>
           </select>
         </div>
 
-        {/* Submit Button */}
+        {/* Submit */}
         <div className="px-6 py-4">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none"
-            type="button"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             onClick={handleSubmit}
           >
             Generate Recipe
@@ -150,21 +146,18 @@ const RecipeCard = ({ onSubmit }) => {
 function App() {
   const [recipeText, setRecipeText] = useState("");
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (formData) => {
     setRecipeText("Generating recipe...");
     try {
       const response = await fetch("http://localhost:5000/generate_recipe", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        body: formData,
       });
 
       const result = await response.json();
       setRecipeText(result.recipe || "No recipe generated.");
     } catch (error) {
-      console.error("Error fetching recipe:", error);
+      console.error("Error:", error);
       setRecipeText("Error generating recipe.");
     }
   };
