@@ -1,32 +1,32 @@
-# 🍽️ AI-Powered Intelligent Recipe Suggestion Assistant
+#  AI-Powered Intelligent Recipe Suggestion Assistant
 
 This is a full-stack AI-powered application that generates structured, human-like cooking recipes using either:
 
-- 🌟 **Google Gemini Pro Vision** (multimodal: text + image)
-- 🧠 **Hugging Face FLAN-T5** (text-only)
+-  **Google Gemini Pro Vision** (multimodal: text + image)
+-  **Hugging Face FLAN-T5** (text-only)
 
 You can input ingredients, select preferences like cuisine or complexity, or even upload an image of ingredients (for Gemini), and receive a complete recipe including a title, ingredients list, and step-by-step instructions.
 
 ---
 
-## 🧠 How It Works
+##  How It Works
 
-- 📄 **Text Input**: Type ingredients and preferences → AI generates recipe.
-- 📷 **Image Input** *(Gemini only)*: Upload a picture of ingredients or a dish → Gemini analyzes it and generates a recipe.
-- 🧠 **Model Options**:
+-  **Text Input**: Type ingredients and preferences → AI generates recipe.
+-  **Image Input** *(Gemini only)*: Upload a picture of ingredients or a dish → Gemini analyzes it and generates a recipe.
+-  **Model Options**:
   - **Gemini Pro Vision**: Accepts image + text, generates more detailed outputs.
   - **Hugging Face FLAN-T5**: Fast and lightweight, text-only input.
 
 ---
 
-## 📸 Screenshots
+##  Screenshots
 
 ![image](https://github.com/user-attachments/assets/fb03bc91-23db-4f1f-ba19-87f2cefb67ad)
 
 
 ---
 
-## 🔧 How to Set Up Locally
+##  How to Set Up Locally
 
 ### 1. Clone the Repository
 
@@ -60,7 +60,7 @@ pip install -r requirements.txt
 GEMINI_API_KEY=your_actual_api_key_here
 ```
 
-✅ This file is listed in `.gitignore` so it won’t be committed to GitHub.
+ This file is listed in `.gitignore` so it won’t be committed to GitHub.
 
 ---
 
@@ -88,7 +88,7 @@ This launches the React app at `http://localhost:3000`.
 
 ---
 
-## ✅ How to Use
+##  How to Use
 
 1. Enter ingredients (required).
 2. Choose AI model: Gemini or Hugging Face.
@@ -102,7 +102,7 @@ This launches the React app at `http://localhost:3000`.
 
 ---
 
-## 🧰 Tech Stack
+##  Tech Stack
 
 | Layer      | Technology |
 |------------|------------|
@@ -113,7 +113,7 @@ This launches the React app at `http://localhost:3000`.
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 AI-Powered-Intelligent-Recipe-Suggestion-Assistant/
@@ -131,6 +131,6 @@ AI-Powered-Intelligent-Recipe-Suggestion-Assistant/
 
 
 
-## 📄 License
+##  License
 
 MIT License © 2025 Aryan Rai
